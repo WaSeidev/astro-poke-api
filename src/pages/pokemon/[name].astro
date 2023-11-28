@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { Image } from 'astro:assets'
+const request = await fetch(
+  `https://pokeapi.co/api/v2/pokemon/${Astro.params.name}`
+)
+const data = await request.json()
+console.log(data)
+---
+
+<BaseLayout title={data.name.charAt(0).toUpperCase() + data.name.slice(1)}>
+  <main class='flex w-full p-4 text-gray-800'>
+    <article class="flex flex-col bg-gray-200 rounded-lg p-4 w-full">
+      <div>
+        <h1 class='text-4xl font-semibold'>
+          {data.name.charAt(0).toUpperCase() + data.name.slice(1)} - #{data.order}
+        </h1>
+      </div>
+      <div class='flex flex-row gap-4 p-4'>
+        <div>
+          <Image
+            src={data.sprites.other['official-artwork'].front_default}
+            alt={data.name}
+            width={150}
+            height={150}
+          />
+        </div>
+        <div>
+          <p><strong>Altura:</strong> {data.height}</p>
+          <p><strong>Peso:</strong> {data.weight}</p>
+          <p><strong>Experiencia:</strong> {data.base_experience}</p>
+          <p><strong>Habilidades:</strong> {data.abilities.map((ability) => ability.ability.name).join(', ')}</p>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        {
+          data.types.map((type) => (
+            <div
+              class="flex px-2 mx-1 py-1 text-sm items-center justify-center rounded-lg bg-gray-300"
+            >
+              {type.type.name}
+            </div>
+          ))
+        }
+      </div>
+    </article>
+  </main>
+</BaseLayout>
