@@ -10,10 +10,8 @@ const response = await fetch(href)
 const data = await response.json()
 ---
 
-<article
-  class='flex flex-col rounded-lg border bg-gray-200 p-4 shadow-lg hover:bg-gray-300'
->
-  <a href={`/pokemon/${title}`}>
+<article class='flex rounded-lg border bg-gray-200 shadow-lg hover:bg-gray-300'>
+  <a class='flex w-full flex-col p-4' href={`/pokemon/${title}`}>
     <div>
       <h2 class='text-xl font-bold'>
         {title}

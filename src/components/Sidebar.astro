@@ -1,0 +1,44 @@
+---
+import { Icon } from 'astro-icon'
+import SideMenu from './SideMenu.astro'
+import SideItem from './SideItem.astro'
+---
+
+<aside
+  class='flex h-screen w-64 flex-col bg-gray-300 p-4 dark:bg-gray-900 dark:text-gray-100'
+>
+  <div class='flex w-full justify-center'>
+    <a href='/'>
+      <Icon name='simple-icons:pokemon' size={96} class='hidden md:block' />
+      <Icon
+        name='ic:twotone-catching-pokemon'
+        size={48}
+        class='block md:hidden'
+      />
+    </a>
+  </div>
+  <SideMenu>
+    <SideItem href='/pokemon'>Pokemones</SideItem>
+    <SideItem href='/types'>Tipos</SideItem>
+    <SideItem href='/about'>Acerca de</SideItem>
+  </SideMenu>
+  <div class='mt-auto flex w-full px-4'>
+    <ul class='flex w-full justify-between'>
+      <li>
+        <a href='https://twitter.com/waseidel' target='_blank'
+          ><Icon name='mdi:twitter' size={24} /></a
+        >
+      </li>
+      <li>
+        <a href='https://www.linkedin.com/in/waseidel/' target='_blank'
+          ><Icon name='mdi:linkedin' size={24} /></a
+        >
+      </li>
+      <li>
+        <a href='https://github.com/waseidel' target='_blank'
+          ><Icon name='mdi:github' size={24} /></a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
