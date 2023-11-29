@@ -1,0 +1,15 @@
+---
+import TypeItem from './TypeItem.astro'
+export interface Props {
+  types: [
+    type: {
+      name: string
+    }
+  ]
+}
+const { types } = Astro.props
+---
+
+<div class='grid grid-cols-2 gap-2'>
+  {types.map((type) => <TypeItem type={type} />)}
+</div>

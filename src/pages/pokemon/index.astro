@@ -1,8 +1,11 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro'
 import CardList from '../../components/CardList.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+const searchParams = new URL(Astro.request.url).searchParams
+const limit = Number(searchParams.get('limit') || 20)
+const offset = Number(searchParams.get('offset') || 0)
 ---
 
-<BaseLayout title='Welcome to Astro.'>
-    <CardList />
+<BaseLayout title='Pokemon | Pokemones'>
+  <CardList limit={limit} offset={offset} />
 </BaseLayout>

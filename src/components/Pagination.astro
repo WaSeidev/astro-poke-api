@@ -1,0 +1,37 @@
+---
+export type Props = {
+  limit?: number
+  offset?: number
+  endpoint: string
+}
+const { limit = 20, offset = 0, endpoint } = Astro.props
+---
+
+<nav aria-label='Pagination'>
+  <ul class='flex justify-center'>
+    <li class:list={[offset === 0 ? 'hidden' : '']}>
+      <a
+        href={`/${endpoint}?offset=${offset - limit}&limit=${limit}`}
+        rel='prev'
+        class:list={[
+          `block rounded-l-lg border border-gray-200 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+            offset === 0 ? 'cursor-not-allowed opacity-50' : ''
+          }`
+        ]}
+      >
+        &larr; Anterior
+      </a>
+    </li>
+    <li>
+      <a
+        href={`/${endpoint}?offset=${offset + limit}&limit=${limit}`}
+        rel='next'
+        class:list={[
+          'block rounded-r-lg border border-gray-200 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700'
+        ]}
+      >
+        Siguiente &rarr;
+      </a>
+    </li>
+  </ul>
+</nav>

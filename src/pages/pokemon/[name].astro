@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import AbilityList from '../../components/AbilityList.astro'
 import { Image } from 'astro:assets'
 const request = await fetch(
   `https://pokeapi.co/api/v2/pokemon/${Astro.params.name}`
@@ -8,45 +9,34 @@ const data = await request.json()
 ---
 
 <BaseLayout title={data.name.charAt(0).toUpperCase() + data.name.slice(1)}>
-  <main class='flex w-full p-4 text-gray-800'>
-    <article class='flex w-full flex-col rounded-lg bg-gray-200 p-4'>
-      <div>
-        <h1 class='text-4xl font-semibold'>
-          {data.name.charAt(0).toUpperCase() + data.name.slice(1)} - #{
-            data.order
-          }
-        </h1>
-      </div>
-      <div class='flex flex-row gap-4 p-4'>
-        <div>
-          <Image
-            src={data.sprites.other['official-artwork'].front_default}
-            alt={data.name}
-            width={150}
-            height={150}
-          />
-        </div>
-        <div>
-          <p><strong>Altura:</strong> {data.height}</p>
-          <p><strong>Peso:</strong> {data.weight}</p>
-          <p><strong>Experiencia:</strong> {data.base_experience}</p>
-          <p>
-            <strong>Habilidades:</strong>
-            {data.abilities.map((ability) => ability.ability.name).join(', ')}
-          </p>
-        </div>
-      </div>
-      <div class='flex justify-center'>
-        {
-          data.types.map((type) => (
-            <a href={`/types/${type.type.name}`}>
-              <div class='mx-1 flex items-center justify-center rounded-lg bg-gray-300 px-2 py-1 text-sm'>
-                {type.type.name}
-              </div>
-            </a>
-          ))
-        }
-      </div>
-    </article>
+  <main class='w-full'>
+    <h1 class='text-center text-3xl font-bold'>
+      {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
+      <span class='text-sm font-normal text-gray-500'>
+        N.º {data.id.toString().padStart(3, '0')}
+      </span>
+    </h1>
+    <Image
+      class='mx-auto mt-4 rounded-md bg-gray-300'
+      src={data.sprites.other['official-artwork'].front_default}
+      alt={data.name}
+      width={300}
+      height={300}
+    />
+    <div class='mt-4 rounded-lg bg-gray-300 p-2'>
+      <h3 class='font-semibold'>Puntos de base</h3>
+      <ul>
+        <li>
+          <strong>Altura:{' '}</strong>{data.height / 10} m
+        </li>
+        <li>
+          <strong>Peso:{' '}</strong>{data.weight / 10} kg
+        </li>
+        <li class='flex gap-2'>
+          <strong>Habilidades:{' '}</strong>
+          <AbilityList abilities={data.abilities} />
+        </li>
+      </ul>
+    </div>
   </main>
 </BaseLayout>

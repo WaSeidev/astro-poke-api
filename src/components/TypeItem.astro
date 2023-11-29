@@ -1,0 +1,10 @@
+---
+const { type } = Astro.props
+const response = await fetch(`https://pokeapi.co/api/v2/type/${type.type.name}`)
+const data = await response.json()
+const { name } = data.names.find((name) => name.language.name === 'es')
+---
+
+<p class='rounded-md bg-gray-300 px-1 text-center text-xs font-semibold'>
+  {name}
+</p>
